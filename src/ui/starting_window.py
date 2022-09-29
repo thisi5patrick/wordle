@@ -6,8 +6,8 @@ from PyQt6.QtWidgets import QGridLayout, QHBoxLayout, QLabel, QPushButton, QSpac
 class StartingWindow(QHBoxLayout):
     def __init__(self):
         super(StartingWindow, self).__init__()
-        self.LETTERS = 5
-        self.ATTEMPTS = 5
+        self.LETTERS = {"min": 5, "max": 12, "letters": 5}
+        self.ATTEMPTS = {"min": 5, "max": 12, "attempts": 5}
 
         self.setStretch(0, 100)
         self.setStretch(3, 100)
@@ -57,20 +57,34 @@ class StartingWindow(QHBoxLayout):
 
         return widget
 
+    def _add_letter(self) -> None:
+        if self.LETTERS["letters"] >= self.LETTERS["max"]:
+            return
+        self.LETTERS["letters"] += 1
+        self.letters_num_label.setText(str(self.LETTERS["letters"]))
+
+    def _sub_letter(self) -> None:
+        if self.LETTERS["letters"] <= self.LETTERS["min"]:
+            return
+        self.LETTERS["letters"] -= 1
+        self.letters_num_label.setText(str(self.LETTERS["letters"]))
+
     def _create_letters_num_widget(self) -> QWidget:
         font = QFont("Bradley Hand", 36)
 
         letters_grid_layout = QGridLayout()
         letters_grid_layout.setVerticalSpacing(5)
 
-        letters_num_label = QLabel(str(self.LETTERS))
-        letters_num_label.setFont(font)
-        letters_grid_layout.addWidget(letters_num_label, 0, 0, 2, 2)
+        self.letters_num_label = QLabel(str(self.LETTERS["letters"]))
+        self.letters_num_label.setFont(font)
+        letters_grid_layout.addWidget(self.letters_num_label, 0, 0, 2, 2)
 
         more_letters_button = QPushButton("ᐱ")
+        more_letters_button.clicked.connect(self._add_letter)
         letters_grid_layout.addWidget(more_letters_button, 0, 2, 1, 2)
 
         less_letters_button = QPushButton("ᐯ")
+        less_letters_button.clicked.connect(self._sub_letter)
         letters_grid_layout.addWidget(less_letters_button, 1, 2, 1, 2)
 
         widget = QWidget()
@@ -78,21 +92,35 @@ class StartingWindow(QHBoxLayout):
 
         return widget
 
+    def _add_attempt(self) -> None:
+        if self.ATTEMPTS["attempts"] >= self.ATTEMPTS["max"]:
+            return
+        self.ATTEMPTS["attempts"] += 1
+        self.attempts_num_label.setText(str(self.ATTEMPTS["attempts"]))
+
+    def _sub_attempt(self) -> None:
+        if self.ATTEMPTS["attempts"] <= self.ATTEMPTS["min"]:
+            return
+        self.ATTEMPTS["attempts"] -= 1
+        self.attempts_num_label.setText(str(self.ATTEMPTS["attempts"]))
+
     def _create_attempts_num_widget(self) -> QWidget:
         font = QFont("Bradley Hand", 36)
 
         letters_grid_layout = QGridLayout()
         letters_grid_layout.setVerticalSpacing(5)
 
-        letters_num_label = QLabel(str(self.ATTEMPTS))
-        letters_num_label.setFont(font)
-        letters_grid_layout.addWidget(letters_num_label, 0, 0, 2, 2)
+        self.attempts_num_label = QLabel(str(self.ATTEMPTS["attempts"]))
+        self.attempts_num_label.setFont(font)
+        letters_grid_layout.addWidget(self.attempts_num_label, 0, 0, 2, 2)
 
-        more_letters_button = QPushButton("ᐱ")
-        letters_grid_layout.addWidget(more_letters_button, 0, 2, 1, 2)
+        more_attempts_button = QPushButton("ᐱ")
+        more_attempts_button.clicked.connect(self._add_attempt)
+        letters_grid_layout.addWidget(more_attempts_button, 0, 2, 1, 2)
 
-        less_letters_button = QPushButton("ᐯ")
-        letters_grid_layout.addWidget(less_letters_button, 1, 2, 1, 2)
+        less_attempts_button = QPushButton("ᐯ")
+        less_attempts_button.clicked.connect(self._sub_attempt)
+        letters_grid_layout.addWidget(less_attempts_button, 1, 2, 1, 2)
 
         widget = QWidget()
         widget.setLayout(letters_grid_layout)
