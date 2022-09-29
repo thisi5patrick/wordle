@@ -17,3 +17,13 @@ isort = "^5.10.1"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+py_version = 39
+profile = "black"
+line_length = 120
+skip = ["__init__.py", "venv", ".git"]
+
+[tool.black]
+line-length = 120
+target-version = ['py39']

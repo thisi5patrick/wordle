@@ -1,4 +1,5 @@
-from PyQt6.QtWidgets import QMainWindow, QWidget, QPushButton
+from PyQt6.QtWidgets import QMainWindow, QWidget
+
 from . import GameWindow, StartingWindow
 
 
@@ -8,8 +9,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Wordle")
 
     def starting_window(self):
-        # self.setFixedSize(700, 500)
-
         starting_window = StartingWindow()
         widget = QWidget()
         widget.setLayout(starting_window)

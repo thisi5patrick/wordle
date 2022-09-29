@@ -1,14 +1,6 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import (
-    QPushButton,
-    QLabel,
-    QHBoxLayout,
-    QSpacerItem,
-    QVBoxLayout,
-    QWidget,
-    QGridLayout,
-)
+from PyQt6.QtWidgets import QGridLayout, QHBoxLayout, QLabel, QPushButton, QSpacerItem, QVBoxLayout, QWidget
 
 
 class StartingWindow(QHBoxLayout):
