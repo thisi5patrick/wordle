@@ -4,10 +4,11 @@ from PyQt6.QtWidgets import QGridLayout, QHBoxLayout, QLabel, QPushButton, QSpac
 
 
 class StartingWindow(QHBoxLayout):
-    def __init__(self):
+    def __init__(self, parent: "MainWindow"):
         super(StartingWindow, self).__init__()
+        self.parent = parent
         self.LETTERS = {"min": 5, "max": 12, "letters": 5}
-        self.ATTEMPTS = {"min": 5, "max": 12, "attempts": 5}
+        self.ATTEMPTS = {"min": 5, "max": 12, "attempts": 6}
 
         self.setStretch(0, 100)
         self.setStretch(3, 100)
@@ -18,7 +19,7 @@ class StartingWindow(QHBoxLayout):
         self.addWidget(inner_layout, 1)
         self.insertSpacing(2, 200)
 
-    def _create_inner_layout(self):
+    def _create_inner_layout(self) -> QWidget:
 
         font = QFont("Bradley Hand", 24)
 
@@ -44,6 +45,7 @@ class StartingWindow(QHBoxLayout):
 
         start_button = QPushButton("Start".upper())
         start_button.setFont(font)
+        start_button.clicked.connect(self._start_game)
         layout.addWidget(start_button)
 
         layout.addSpacerItem(QSpacerItem(0, 20))
@@ -56,6 +58,9 @@ class StartingWindow(QHBoxLayout):
         widget.setLayout(layout)
 
         return widget
+
+    def _start_game(self) -> None:
+        self.parent.game_window(self.LETTERS["letters"], self.ATTEMPTS["attempts"])
 
     def _add_letter(self) -> None:
         if self.LETTERS["letters"] >= self.LETTERS["max"]:
