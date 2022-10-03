@@ -1,9 +1,9 @@
+import numpy as np
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPalette, QFont
+from PyQt6.QtGui import QFont, QPalette
 from PyQt6.QtWidgets import QGridLayout, QLabel
 
 from .app import Color
-import numpy as np
 
 
 class GridInput(QLabel):

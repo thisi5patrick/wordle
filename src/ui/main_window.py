@@ -1,8 +1,8 @@
+from string import ascii_uppercase
+
 from PyQt6 import QtGui
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QMainWindow, QWidget
-
-from string import ascii_uppercase
 
 from . import GameWindow, StartingWindow
 from .app import GameLogic
@@ -34,13 +34,11 @@ class MainWindow(QMainWindow):
     def keyPressEvent(self, event: QtGui.QKeyEvent) -> None:
         if event.key() == Qt.Key.Key_Backspace:
             self.game_logic.remove_letter()
-        if event.key() == Qt.Key.Key_Return and len(self.game_logic.checked_word) == self.game_logic.letters:
+        if event.key() == Qt.Key.Key_Return:
             self.game_logic.check_word()
 
         key = event.text().upper()
         if key in ascii_uppercase:
-            if len(self.game_logic.checked_word) >= self.game_logic.letters:
-                return
             self.game_logic.add_letter(key)
 
 

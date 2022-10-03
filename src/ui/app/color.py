@@ -1,4 +1,5 @@
 from enum import Enum
+
 from PyQt6.QtGui import QColor
 
 
