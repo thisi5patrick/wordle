@@ -21,9 +21,8 @@ class MainWindow(QMainWindow):
 
     def game_window(self, letters: int, attempts: int):
         game_window = GameWindow(letters, attempts)
-        game_inputs = game_window.get_inputs()
 
-        self.game_logic = GameLogic(letters, attempts, game_inputs)
+        self.game_logic = GameLogic(letters, attempts, game_window)
         self.game_logic.start_game()
 
         widget = QWidget()

@@ -1,4 +1,3 @@
-import numpy as np
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QPalette
 from PyQt6.QtWidgets import QGridLayout, QLabel
@@ -21,13 +20,20 @@ class GameWindow(QGridLayout):
         super(GameWindow, self).__init__()
         self.letters = letters
         self.attempts = attempts
-        self.inputs = np.empty([self.attempts, self.letters], GridInput)
         self._create_inputs()
+        self._create_placeholder()
 
-    def get_inputs(self) -> np.array:
-        return self.inputs
+    def _create_placeholder(self) -> None:
+        self.spacerItem()
+        message_info = QLabel()
+        message_info.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        message_info.setAutoFillBackground(True)
+        font = QFont()
+        font.setPixelSize(20)
+        message_info.setFont(font)
+        self.addWidget(message_info, self.attempts + 1, 0, 1, self.letters)
 
-    def _create_inputs(self):
+    def _create_inputs(self) -> None:
         self.setSpacing(2)
         palette = QPalette()
         palette.setColor(QPalette.ColorRole.Window, Color.DEFAULT.value)
@@ -38,5 +44,4 @@ class GameWindow(QGridLayout):
         for attempt_num in range(self.attempts):
             for letter_num in range(self.letters):
                 input = GridInput(palette, font)
-                self.inputs[attempt_num, letter_num] = input
                 self.addWidget(input, attempt_num, letter_num)
