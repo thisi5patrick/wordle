@@ -33,7 +33,7 @@ class GameWindow(QGridLayout):
         font = QFont()
         font.setPixelSize(20)
         message_info.setFont(font)
-        self.addWidget(message_info, self.attempts + 1, 0, 1, self.letters)
+        self.addWidget(message_info, self.attempts + 1, 0, 2, self.letters)
 
     def _create_function_buttons(self) -> None:
         button_size = QSize(0, 50)
@@ -45,13 +45,13 @@ class GameWindow(QGridLayout):
         restart_button.setText("Restart Game")
         restart_button.setMinimumSize(button_size)
         restart_button.setFont(font)
-        self.addWidget(restart_button, self.attempts + 2, 0, 1, 2)
+        self.addWidget(restart_button, self.attempts + 3, 0, 1, 2)
 
         exit_button = QPushButton()
         exit_button.setText("Exit")
         exit_button.setMinimumSize(button_size)
         exit_button.setFont(font)
-        self.addWidget(exit_button, self.attempts + 2, self.letters - 2, 1, 2)
+        self.addWidget(exit_button, self.attempts + 3, self.letters - 2, 1, 2)
 
     def _create_inputs(self) -> None:
         palette = QPalette()

@@ -35,7 +35,6 @@ class GameLogic:
     def select_word(self) -> str:
         potential_words = []
         for word in self._words:
-            word = word[:-1]
             if len(word) == self.letters:
                 potential_words.append(word)
 
@@ -82,7 +81,7 @@ class GameLogic:
         self.checked_word = ""
 
     def _game_won(self):
-        ...
+        self.placeholder.setText(f"You won! Saving to scoreboard")
 
     def _game_lost(self):
         ...
