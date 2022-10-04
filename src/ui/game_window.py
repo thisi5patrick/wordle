@@ -1,6 +1,6 @@
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QFont, QPalette
-from PyQt6.QtWidgets import QGridLayout, QLabel
+from PyQt6.QtWidgets import QGridLayout, QLabel, QPushButton
 
 from .app import Color
 
@@ -18,10 +18,12 @@ class GridInput(QLabel):
 class GameWindow(QGridLayout):
     def __init__(self, letters: int, attempts: int):
         super(GameWindow, self).__init__()
+        self.setSpacing(2)
         self.letters = letters
         self.attempts = attempts
         self._create_inputs()
         self._create_placeholder()
+        self._create_function_buttons()
 
     def _create_placeholder(self) -> None:
         self.spacerItem()
@@ -33,8 +35,25 @@ class GameWindow(QGridLayout):
         message_info.setFont(font)
         self.addWidget(message_info, self.attempts + 1, 0, 1, self.letters)
 
+    def _create_function_buttons(self) -> None:
+        button_size = QSize(0, 50)
+        font = QFont("Bradley Hand", 24)
+
+        self.spacerItem()
+
+        restart_button = QPushButton()
+        restart_button.setText("Restart Game")
+        restart_button.setMinimumSize(button_size)
+        restart_button.setFont(font)
+        self.addWidget(restart_button, self.attempts + 2, 0, 1, 2)
+
+        exit_button = QPushButton()
+        exit_button.setText("Exit")
+        exit_button.setMinimumSize(button_size)
+        exit_button.setFont(font)
+        self.addWidget(exit_button, self.attempts + 2, self.letters - 2, 1, 2)
+
     def _create_inputs(self) -> None:
-        self.setSpacing(2)
         palette = QPalette()
         palette.setColor(QPalette.ColorRole.Window, Color.DEFAULT.value)
         font = QFont()

@@ -45,7 +45,7 @@ class StartingWindow(QHBoxLayout):
 
         start_button = QPushButton("Start".upper())
         start_button.setFont(font)
-        start_button.clicked.connect(self._start_game)
+        start_button.clicked.connect(self.start_game)
         layout.addWidget(start_button)
 
         layout.addSpacerItem(QSpacerItem(0, 20))
@@ -59,7 +59,7 @@ class StartingWindow(QHBoxLayout):
 
         return widget
 
-    def _start_game(self) -> None:
+    def start_game(self) -> None:
         self.parent.game_window(self.LETTERS["letters"], self.ATTEMPTS["attempts"])
 
     def _add_letter(self) -> None:

@@ -84,6 +84,9 @@ class GameLogic:
     def _game_won(self):
         ...
 
+    def _game_lost(self):
+        ...
+
     def _word_exists(self) -> bool:
         for word in self._words:
             if word.upper() == self.checked_word:
