@@ -47,11 +47,11 @@ class GameWindow(QGridLayout):
         restart_button.setFont(font)
         self.addWidget(restart_button, self.attempts + 3, 0, 1, 2)
 
-        exit_button = QPushButton()
-        exit_button.setText("Exit")
-        exit_button.setMinimumSize(button_size)
-        exit_button.setFont(font)
-        self.addWidget(exit_button, self.attempts + 3, self.letters - 2, 1, 2)
+        return_button = QPushButton()
+        return_button.setText("Return")
+        return_button.setMinimumSize(button_size)
+        return_button.setFont(font)
+        self.addWidget(return_button, self.attempts + 3, self.letters - 2, 1, 2)
 
     def _create_inputs(self) -> None:
         palette = QPalette()

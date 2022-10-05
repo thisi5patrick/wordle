@@ -21,6 +21,7 @@ class GameLogic:
         self._load_all_words()
         self.checked_word = ""
         self.placeholder = self._get_placeholder()
+        self.game_active = False
 
     def _get_placeholder(self) -> QLabel:
         return self.game_window.itemAt(self.letters * self.attempts).widget()
@@ -42,6 +43,7 @@ class GameLogic:
 
     def start_game(self) -> None:
         self.word = self.select_word()
+        self.game_active = True
 
     def add_letter(self, letter) -> None:
         if self.letter >= self.letters:
@@ -77,6 +79,9 @@ class GameLogic:
             self._game_won()
             return
         self.attempt += 1
+        if self.attempts == self.attempt:
+            self._game_lost()
+            return
         self.letter = 0
         self.checked_word = ""
 
@@ -84,7 +89,7 @@ class GameLogic:
         self.placeholder.setText(f"You won! Saving to scoreboard")
 
     def _game_lost(self):
-        ...
+        self.placeholder.setText("You lost. Please restart game.")
 
     def _word_exists(self) -> bool:
         for word in self._words:

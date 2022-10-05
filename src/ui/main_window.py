@@ -40,8 +40,8 @@ class MainWindow(QMainWindow):
     def game_window(self, letters: int, attempts: int):
         game_window_view = GameWindow(letters, attempts)
 
-        exit_button: QPushButton = game_window_view.itemAt(game_window_view.count() - 1).widget()
-        exit_button.clicked.connect(self._exit_game)
+        return_button: QPushButton = game_window_view.itemAt(game_window_view.count() - 1).widget()
+        return_button.clicked.connect(self._exit_game)
 
         restart_button: QPushButton = game_window_view.itemAt(game_window_view.count() - 2).widget()
         restart_button.clicked.connect(self._restart_game)
@@ -56,11 +56,14 @@ class MainWindow(QMainWindow):
 
     def _exit_game(self):
         self.starting_window()
+        self.game_logic.game_active = False
 
     def _restart_game(self):
         self.starting_window_view.start_game()
 
     def keyPressEvent(self, event: QtGui.QKeyEvent) -> None:
+        if not hasattr(self, "game_logic") or not self.game_logic.game_active:
+            return
         if event.key() == Qt.Key.Key_Backspace:
             self.game_logic.remove_letter()
         if event.key() == Qt.Key.Key_Return:
