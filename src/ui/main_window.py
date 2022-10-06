@@ -7,7 +7,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QMainWindow, QPushButton, QWidget
 
 from . import GameWindow, StartingWindow
-from .app import GameLogic
+from .. import GameLogic
 
 
 class MainWindow(QMainWindow):

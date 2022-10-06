@@ -2,7 +2,7 @@ from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QFont, QPalette
 from PyQt6.QtWidgets import QGridLayout, QLabel, QPushButton
 
-from .app import Color
+from .. import Color
 
 
 class GridInput(QLabel):
