@@ -1,10 +1,12 @@
 import random
+import time
 from pathlib import Path
 
 import numpy as np
 from PyQt6.QtGui import QPalette
 from PyQt6.QtWidgets import QGridLayout, QLabel
 
+from ..db.db_utils import DatabaseUtils
 from . import Color
 
 
@@ -22,6 +24,7 @@ class GameLogic:
         self.checked_word = ""
         self.placeholder = self._get_placeholder()
         self.game_active = False
+        self._start_time = None
 
     def _get_placeholder(self) -> QLabel:
         return self.game_window.itemAt(self.letters * self.attempts).widget()
@@ -44,6 +47,7 @@ class GameLogic:
     def start_game(self) -> None:
         self.word = self.select_word()
         self.game_active = True
+        self._start_time = time.time()
 
     def add_letter(self, letter) -> None:
         if self.letter >= self.letters:
@@ -87,6 +91,10 @@ class GameLogic:
 
     def _game_won(self):
         self.placeholder.setText(f"You won! Saving to scoreboard")
+        game_time = int(time.time() - self._start_time)
+
+        DatabaseUtils.insert_game(game_time_seconds=game_time, attempts=self.attempt, word=self.word)
+        self._start_time = None
 
     def _game_lost(self):
         self.placeholder.setText("You lost. Please restart game.")
