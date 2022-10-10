@@ -2,13 +2,16 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QGridLayout, QHBoxLayout, QLabel, QPushButton, QSpacerItem, QVBoxLayout, QWidget
 
+from ..utils.game_settings import ATTEMPTS, LETTERS
+
 
 class StartingWindow(QHBoxLayout):
     def __init__(self, parent: "MainWindow"):
         super(StartingWindow, self).__init__()
         self.parent = parent
-        self.LETTERS = {"min": 5, "max": 12, "letters": 5}
-        self.ATTEMPTS = {"min": 5, "max": 12, "attempts": 6}
+
+        self.letters = 5
+        self.attempts = 6
 
         self.setStretch(0, 100)
         self.setStretch(3, 100)
@@ -60,19 +63,19 @@ class StartingWindow(QHBoxLayout):
         return widget
 
     def start_game(self) -> None:
-        self.parent.game_window(self.LETTERS["letters"], self.ATTEMPTS["attempts"])
+        self.parent.game_window(self.letters, self.attempts)
 
     def _add_letter(self) -> None:
-        if self.LETTERS["letters"] >= self.LETTERS["max"]:
+        if self.letters >= LETTERS["max"]:
             return
-        self.LETTERS["letters"] += 1
-        self.letters_num_label.setText(str(self.LETTERS["letters"]))
+        self.letters += 1
+        self.letters_num_label.setText(str(self.letters))
 
     def _sub_letter(self) -> None:
-        if self.LETTERS["letters"] <= self.LETTERS["min"]:
+        if self.letters <= LETTERS["min"]:
             return
-        self.LETTERS["letters"] -= 1
-        self.letters_num_label.setText(str(self.LETTERS["letters"]))
+        self.letters -= 1
+        self.letters_num_label.setText(str(self.letters))
 
     def _create_letters_num_widget(self) -> QWidget:
         font = QFont("Bradley Hand", 36)
@@ -80,7 +83,7 @@ class StartingWindow(QHBoxLayout):
         letters_grid_layout = QGridLayout()
         letters_grid_layout.setVerticalSpacing(5)
 
-        self.letters_num_label = QLabel(str(self.LETTERS["letters"]))
+        self.letters_num_label = QLabel(str(self.letters))
         self.letters_num_label.setFont(font)
         letters_grid_layout.addWidget(self.letters_num_label, 0, 0, 2, 2)
 
@@ -98,16 +101,16 @@ class StartingWindow(QHBoxLayout):
         return widget
 
     def _add_attempt(self) -> None:
-        if self.ATTEMPTS["attempts"] >= self.ATTEMPTS["max"]:
+        if self.attempts >= ATTEMPTS["max"]:
             return
-        self.ATTEMPTS["attempts"] += 1
-        self.attempts_num_label.setText(str(self.ATTEMPTS["attempts"]))
+        self.attempts += 1
+        self.attempts_num_label.setText(str(self.attempts))
 
     def _sub_attempt(self) -> None:
-        if self.ATTEMPTS["attempts"] <= self.ATTEMPTS["min"]:
+        if self.attempts <= ATTEMPTS["min"]:
             return
-        self.ATTEMPTS["attempts"] -= 1
-        self.attempts_num_label.setText(str(self.ATTEMPTS["attempts"]))
+        self.attempts -= 1
+        self.attempts_num_label.setText(str(self.attempts))
 
     def _create_attempts_num_widget(self) -> QWidget:
         font = QFont("Bradley Hand", 36)
@@ -115,7 +118,7 @@ class StartingWindow(QHBoxLayout):
         letters_grid_layout = QGridLayout()
         letters_grid_layout.setVerticalSpacing(5)
 
-        self.attempts_num_label = QLabel(str(self.ATTEMPTS["attempts"]))
+        self.attempts_num_label = QLabel(str(self.attempts))
         self.attempts_num_label.setFont(font)
         letters_grid_layout.addWidget(self.attempts_num_label, 0, 0, 2, 2)
 
